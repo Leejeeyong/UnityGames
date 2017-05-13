@@ -1,0 +1,13 @@
+fileFormatVersion: 2
+guid: 013d79986cd1f9c40a6f011c1754bb35
+timeCreated: 1494654355
+licenseType: Free
+MonoImporter:
+  serializedVersion: 2
+  defaultReferences:
+  - colorBox: {fileID: 1968863578751494, guid: a5937bfc4f8ccda47b20c0ed146445f2, type: 2}
+  executionOrder: 0
+  icon: {instanceID: 0}
+  userData: 
+  assetBundleName: 
+  assetBundleVariant: 
