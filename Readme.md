@@ -17,8 +17,8 @@
 	Clicker method
 	if adding month and stop timespan, disable click.
 	skill's value selected schedule is added per 10 clicks.
-	![Title](/image/title.png "title")
-	![Main](/image/main.png "Main")
+	![Title](./image/title.png "title")
+	![Main](./image/main.png "Main")
 
 ## Unityproject001
 	-puzzle game
