@@ -20,11 +20,12 @@ public class TitleManger : MonoBehaviour {
         switch (type)
         {
             case "START":
-                Debug.Log("good");
+                Debug.Log("NewGame");
                 SceneManager.LoadScene("Main");
                 break;
             case "CONTINUE"://데이터컨트롤 스크립트 이용해서
-
+                Debug.Log("Continue");
+                SceneManager.LoadScene("Main");
                 break;
             case "CREDIT"://팝업창으로
 

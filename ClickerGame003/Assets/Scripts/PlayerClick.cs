@@ -5,6 +5,8 @@ using UnityEngine;
 public class PlayerClick : MonoBehaviour {
 
     BoxCollider2D boxclollider;
+    public StatManager statManager;
+    int count;
 
 	// Use this for initialization
 	void Start () {
@@ -18,9 +20,22 @@ public class PlayerClick : MonoBehaviour {
 
         if (rayhit.collider != null)
         {
-            if (rayhit.collider == boxclollider && Input.GetMouseButtonDown(0))
+            if (rayhit.collider == boxclollider && Input.GetMouseButtonDown(0) && ScheduleManger.ActiveUI == false)
             {
-                Debug.Log("PlayerClick");
+                statManager.getGold();
+                statManager.saveGold();
+                count++;
+
+                if (count == 10)
+                {
+                    for(int i = 0; i < 4; i++)
+                    {
+                        statManager.getSkill(ScheduleManger.schedule[i]);
+                    }
+                    count = 0;
+                    
+                }
+                Debug.Log("Player Click");
             }
         }
     }

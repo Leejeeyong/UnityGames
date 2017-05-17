@@ -13,6 +13,12 @@
 	ClickerGame002's solve resolution problem
 	schedule system
 	player click system
+	-2015.05.17
+	Clicker method
+	if adding month and stop timespan, disable click.
+	skill's value selected schedule is added per 10 clicks.
+	![Title](/image/title.png "title")
+	![Main](/image/main.png "Main")
 
 ## Unityproject001
 	-puzzle game
