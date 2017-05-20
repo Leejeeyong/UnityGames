@@ -85,6 +85,7 @@
     <Compile Include="Assets\Scripts\ScheduleCircle.cs" />
     <Compile Include="Assets\Scripts\ScheduleManger.cs" />
     <Compile Include="Assets\Scripts\StatManager.cs" />
+    <Compile Include="Assets\Scripts\SubUiButton.cs" />
     <Compile Include="Assets\Scripts\TitleManger.cs" />
   </ItemGroup>
   <Import Project="$(MSBuildToolsPath)\Microsoft.CSharp.targets" />

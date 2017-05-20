@@ -16,10 +16,12 @@ public class ScheduleManger : MonoBehaviour {
 	// Use this for initialization
 	void Awake () {
         ActiveUI = false;
-        year = 2017;
-        month = 6;
+        year = PlayerPrefs.GetInt("Year",2017);
+        month = PlayerPrefs.GetInt("Month",7);
         schedule = new string[4];
         timespan = 9;
+
+        
 
         StartCoroutine("Timer");
 	}
@@ -38,6 +40,7 @@ public class ScheduleManger : MonoBehaviour {
         //activui가 없을때 , 평상시
         if (!ActiveUI) {
             timespan++;
+            
             if (timespan == 10){//60초마다 한 달씩
                 if (month == 12){//12월이 지난다면
                     timespan = 0;//초 초기화
@@ -48,6 +51,10 @@ public class ScheduleManger : MonoBehaviour {
                     timespan = 0;
                     month++;
                 }
+                PlayerPrefs.SetInt("Year", year);
+                PlayerPrefs.SetInt("Month", month);
+
+
                 ActiveUI = true;
             }
 
@@ -58,6 +65,7 @@ public class ScheduleManger : MonoBehaviour {
 
     public void confirmSchedule()
     {
+
         ActiveUI = false;
         
     }

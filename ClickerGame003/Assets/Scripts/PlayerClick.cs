@@ -17,24 +17,29 @@ public class PlayerClick : MonoBehaviour {
 	void Update () {
         Vector2 mousePos = Camera.main.ScreenToWorldPoint(Input.mousePosition);
         RaycastHit2D rayhit = Physics2D.Raycast(mousePos, Vector2.zero);
+        int x=4;
 
         if (rayhit.collider != null)
         {
             if (rayhit.collider == boxclollider && Input.GetMouseButtonDown(0) && ScheduleManger.ActiveUI == false)
             {
-                statManager.getGold();
-                statManager.saveGold();
+                statManager.getGold();//클릭할때마다 골드획득
+                statManager.saveGold();//골드양을 데이터에 저장
                 count++;
 
-                if (count == 10)
+                for (int i = 0; i < 4; i++)
                 {
-                    for(int i = 0; i < 4; i++)
+                    if (ScheduleManger.schedule[i] =="phy" || ScheduleManger.schedule[i] == "mental" || ScheduleManger.schedule[i] == "abc")
+                    {
+                        statManager.useCondition();
+                    }
+                    if (count == 10)
                     {
                         statManager.getSkill(ScheduleManger.schedule[i]);
                     }
-                    count = 0;
-                    
                 }
+                if (count == 10)
+                    count = 0;
                 Debug.Log("Player Click");
             }
         }
