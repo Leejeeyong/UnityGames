@@ -31,9 +31,15 @@ public class SrarManager : MonoBehaviour {
         PlayerPrefs.SetInt("Secondper", 1);
         PlayerPrefs.SetInt("Clickper", 1);
         PlayerPrefs.SetInt("Year", 2017);
+<<<<<<< HEAD
         PlayerPrefs.SetInt("Month", 1);
         PlayerPrefs.SetInt("Secondper", 1);
         PlayerPrefs.SetInt("Clickper", 1);*/
+=======
+        PlayerPrefs.SetInt("Month", 1);*/
+        PlayerPrefs.SetInt("Secondper", 1);
+        PlayerPrefs.SetInt("Clickper", 1);
+>>>>>>> 99b62f288b3fa006fbe5caebb0f9bf139eb37ff0
 
         gold = PlayerPrefs.GetInt("Gold");
         clickpergold = PlayerPrefs.GetInt("Clickper",1);

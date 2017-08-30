@@ -24,12 +24,20 @@ public class SubUIManager : MonoBehaviour {
 
     // Use this for initialization
     void Start () {
+<<<<<<< HEAD
        /*PlayerPrefs.SetInt("Blevel", 1);
+=======
+       PlayerPrefs.SetInt("Blevel", 1);
+>>>>>>> 99b62f288b3fa006fbe5caebb0f9bf139eb37ff0
         PlayerPrefs.SetInt("Bspend", 1);
         PlayerPrefs.SetInt("Bplus", 1);
         PlayerPrefs.SetInt("Alevel", 1);
         PlayerPrefs.SetInt("Aspend", 1);
+<<<<<<< HEAD
         PlayerPrefs.SetInt("Aplus", 1);*/
+=======
+        PlayerPrefs.SetInt("Aplus", 1);
+>>>>>>> 99b62f288b3fa006fbe5caebb0f9bf139eb37ff0
 
         askillplus = PlayerPrefs.GetInt("Aplus", 1);
         aleve = PlayerPrefs.GetInt("Alevel", 1);
