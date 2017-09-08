@@ -11,8 +11,9 @@ public class ShopManager : MonoBehaviour {
     static int HP;
     static int maxhp;
     static int gold;
-
+    
     static int aGoldPay;
+    static int aGoldPayLV=0;
 
     // Use this for initialization
     void Start () {
@@ -21,14 +22,15 @@ public class ShopManager : MonoBehaviour {
         HP = PlayerPrefs.GetInt("HP");
         gold = PlayerPrefs.GetInt("GOLD");
         aGoldPay = PlayerPrefs.GetInt("AGOLDPAY",100);
+        aGoldPayLV = PlayerPrefs.GetInt("AGOLDPAYLV",0);
 
-        messageText.text = "강화비용" + aGoldPay;
+        messageText.text = "LV:" + aGoldPayLV + "\n강화비용" + aGoldPay;
     }
 	
 	// Update is called once per frame
 	void Update () {
-		
-	}
+        messageText.text = "LV:" + aGoldPayLV + "\n강화비용" + aGoldPay;
+    }
 
     void saveData()
     {
@@ -37,6 +39,7 @@ public class ShopManager : MonoBehaviour {
         PlayerPrefs.SetInt("HP", HP);
         PlayerPrefs.SetInt("GOLD", gold);
         PlayerPrefs.SetInt("AGOLDPAY", aGoldPay);
+        PlayerPrefs.SetInt("AGOLDPAYLV", aGoldPayLV);
     }
 
     public void ATKUP()
@@ -45,13 +48,14 @@ public class ShopManager : MonoBehaviour {
         {
             gold = gold - aGoldPay;
             aGoldPay = aGoldPay + 2;
-            messageText.text = "강화비용"+aGoldPay;
+            messageText.text = "LV:" + aGoldPayLV + "\n강화비용" + aGoldPay;
             atk = atk + 1;
+            aGoldPayLV = aGoldPayLV + 1;
             saveData();
         }
         else
         {
-            messageText.text = "강화비용" + aGoldPay+"\n돈부족";
+            messageText.text = "LV:"+aGoldPayLV+"\n강화비용" + aGoldPay+"\n돈부족";
         }
     }
 }

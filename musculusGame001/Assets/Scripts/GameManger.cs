@@ -20,6 +20,7 @@ public class GameManger : MonoBehaviour {
     public Text HPText;
     public Text GoldText;
     public Text nowlocText;
+    public Canvas GameOverUI;
 
 
     static Vector3[] posBG = { new Vector3(-0.07f, -11f, 0), new Vector3(-0.07f, -1.4f, 0), new Vector3(-0.07f, 10f, 0) };
@@ -37,10 +38,23 @@ public class GameManger : MonoBehaviour {
         PlayerPrefs.SetInt("DEF", 2);
         PlayerPrefs.SetInt("HP", 100);
         PlayerPrefs.SetInt("GOLD", 1000);
+        PlayerPrefs.SetInt("AGOLDPAY",1);
+        PlayerPrefs.SetInt("AGOLDPAYLV", 0);
+        PlayerPrefs.SetInt("EXCERALV", 0);
+        PlayerPrefs.SetInt("EXCERGETGOLD", 5);
+        PlayerPrefs.SetInt("EXCERPAYHP", 30);
+    }
+    public void Gameover()
+    {
+        resetData();
+        GameOverUI.gameObject.SetActive(false);
     }
 
     // Use this for initialization
     void Start() {
+        //resetData();
+       
+
         timespan = 0;
 
         StartCoroutine("Timer");
@@ -49,11 +63,16 @@ public class GameManger : MonoBehaviour {
         def = PlayerPrefs.GetInt("DEF");
         HP = PlayerPrefs.GetInt("HP");
         gold=PlayerPrefs.GetInt("GOLD");
+
+        
     }
 
     // Update is called once per frame
     void Update() {
-        
+        if (HP == 0)
+        {
+            GameOverUI.gameObject.SetActive(true);
+        }
 
         if (myloc == 0)
         {
@@ -81,15 +100,15 @@ public class GameManger : MonoBehaviour {
         
         if (myloc == 2)
         {
-            nowlocText.text = "심해";
+            nowlocText.text = "심해";//hp--,gold+ 
         }
         else if (myloc == 1)
         {
-            nowlocText.text = "수중";
+            nowlocText.text = "수중";//0
         }
         else
         {
-            nowlocText.text = "해수면";
+            nowlocText.text = "해수면";//hp++
         }
 
         atk = PlayerPrefs.GetInt("ATK");
@@ -116,6 +135,7 @@ public class GameManger : MonoBehaviour {
             myloc = myloc - 1;
             a = -1;
         }
+        timespan = 1;
         saveData();
     }
     public void Downbtn()
@@ -130,6 +150,7 @@ public class GameManger : MonoBehaviour {
             a = 1;
             myloc = myloc + 1;
         }
+        timespan = 1;
         saveData();
     }
     IEnumerator Timer()
@@ -137,18 +158,41 @@ public class GameManger : MonoBehaviour {
         yield return new WaitForSeconds(1f);
 
         timespan++;
-
-        if (timespan%5==0)
+        if (timespan % 5 == 0)
         {
-            if (HP >= 98)
+            if (myloc == 0)//해수면 일때
             {
-                HP = 100;
+                if (HP >= 98)
+                {
+                    HP = 100;
+                }
+                else
+                {
+                    HP = HP + 2;
+                }
+                saveData();
             }
-            else
+            else if (myloc == 2)
             {
-                HP = HP + 2;
+                if (HP > 1)
+                {
+                    HP = HP - 2;
+                    gold++;
+                }
+                saveData();
             }
-            saveData();
+            else if (myloc == 1)
+            {
+                if (HP >= 99)
+                {
+                    HP = 100;
+                }
+                else
+                {
+                    HP = HP + 1;
+                }
+                saveData();
+            }
         }
         StartCoroutine("Timer");
     }
@@ -165,6 +209,19 @@ public class GameManger : MonoBehaviour {
         else
         {
             shopUI.gameObject.SetActive(false);
+
+        }
+    }
+    public Canvas excerUI;
+    public void Bbtn()
+    {
+        if (excerUI.gameObject.active == false)
+        {
+            excerUI.gameObject.SetActive(true);
+        }
+        else
+        {
+            excerUI.gameObject.SetActive(false);
 
         }
     }
