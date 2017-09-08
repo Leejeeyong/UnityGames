@@ -5,6 +5,8 @@
 	-2017.06.15
 	-2017.08.30
 	-2017.09.08
+		shop and excer system
+		gold,hp per location
 =======
 ## ForeverSeries001
 	-2017.05
