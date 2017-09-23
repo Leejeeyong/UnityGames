@@ -1,5 +1,10 @@
 # Unity exam
 
+## whalegame
+	-2017.09.23
+		clickper
+		seconmdper
+
 <<<<<<< HEAD
 ## musculusGame001
 	-2017.06.15
