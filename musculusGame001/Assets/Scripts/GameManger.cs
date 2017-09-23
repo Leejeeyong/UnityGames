@@ -21,16 +21,18 @@ public class GameManger : MonoBehaviour {
     public Text GoldText;
     public Text nowlocText;
     public Canvas GameOverUI;
+    public GameObject Player1;
+   // static Vector3 Playerpos= Player1.transform.position;
 
 
-    static Vector3[] posBG = { new Vector3(-0.07f, -11f, 0), new Vector3(-0.07f, -1.4f, 0), new Vector3(-0.07f, 10f, 0) };
+    static Vector3[] posBG = { new Vector3(0, -10.6f, 0), new Vector3(0, 0, 0), new Vector3(0, 10.6f, 0) };
 
     void saveData()
     {
-        PlayerPrefs.SetInt("ATK",atk);
-        PlayerPrefs.SetInt("DEF",def);
-        PlayerPrefs.SetInt("HP",HP);
-        PlayerPrefs.SetInt("GOLD",gold);
+        PlayerPrefs.SetInt("ATK", atk);
+        PlayerPrefs.SetInt("DEF", def);
+        PlayerPrefs.SetInt("HP", HP);
+        PlayerPrefs.SetInt("GOLD", gold);
     }
     void resetData()
     {
@@ -38,7 +40,7 @@ public class GameManger : MonoBehaviour {
         PlayerPrefs.SetInt("DEF", 2);
         PlayerPrefs.SetInt("HP", 100);
         PlayerPrefs.SetInt("GOLD", 1000);
-        PlayerPrefs.SetInt("AGOLDPAY",1);
+        PlayerPrefs.SetInt("AGOLDPAY", 1);
         PlayerPrefs.SetInt("AGOLDPAYLV", 0);
         PlayerPrefs.SetInt("EXCERALV", 0);
         PlayerPrefs.SetInt("EXCERGETGOLD", 5);
@@ -53,22 +55,24 @@ public class GameManger : MonoBehaviour {
     // Use this for initialization
     void Start() {
         //resetData();
-       
+
 
         timespan = 0;
 
         StartCoroutine("Timer");
-        myloc = PlayerPrefs.GetInt("MYLOC",1);
+        myloc = PlayerPrefs.GetInt("MYLOC", 1);
         atk = PlayerPrefs.GetInt("ATK");
         def = PlayerPrefs.GetInt("DEF");
         HP = PlayerPrefs.GetInt("HP");
-        gold=PlayerPrefs.GetInt("GOLD");
+        gold = PlayerPrefs.GetInt("GOLD");
 
-        
+
     }
 
     // Update is called once per frame
     void Update() {
+
+        Playerlocation(Player1);
         if (HP == 0)
         {
             GameOverUI.gameObject.SetActive(true);
@@ -77,27 +81,30 @@ public class GameManger : MonoBehaviour {
         if (myloc == 0)
         {
             upbtn.SetActive(false);
+            nowlocText.text = "해수면";//hp++
         }
         else if (myloc == 2)
         {
             downbtn.SetActive(false);
+            nowlocText.text = "심해";//hp--,gold+ 
         }
         else
         {
             upbtn.SetActive(true);
             downbtn.SetActive(true);
+            nowlocText.text = "수중";//0
         }
 
         if (BackGround.transform.position != posBG[myloc])
         {
-            BackGround.transform.position = Vector3.Lerp(BackGround.transform.position, BackGround.transform.position + a * new Vector3(0, 0.1f, 0), 100.0f);
+            BackGround.transform.position = Vector3.Lerp(BackGround.transform.position, BackGround.transform.position + a * new Vector3(0, 0.1f, 0), 107.0f);
         }
         else
         {
             a = 0;
         }
 
-        
+        /*
         if (myloc == 2)
         {
             nowlocText.text = "심해";//hp--,gold+ 
@@ -110,7 +117,7 @@ public class GameManger : MonoBehaviour {
         {
             nowlocText.text = "해수면";//hp++
         }
-
+        */
         atk = PlayerPrefs.GetInt("ATK");
         def = PlayerPrefs.GetInt("DEF");
         HP = PlayerPrefs.GetInt("HP");
@@ -195,6 +202,29 @@ public class GameManger : MonoBehaviour {
             }
         }
         StartCoroutine("Timer");
+    }
+
+    void Playerlocation(GameObject p1)
+    {
+        if (p1.transform.localScale==new Vector3(10f,10f,1f))
+        {
+            if(p1.transform.position==new Vector3(-4.5f, 0, -1))
+            {
+                p1.transform.localScale = new Vector3(-10f, 10f, 1f);
+            }
+            p1.transform.position = Vector3.Lerp(p1.transform.position, p1.transform.position + new Vector3(-0.1f, 0, 0),5.0f);
+            
+        }
+        else if (p1.transform.localScale == new Vector3(-10f, 10f, 1f))
+        {
+            if (p1.transform.position == new Vector3(4.5f, 0, -1))
+            {
+                p1.transform.localScale = new Vector3(10f, 10f, 1f);
+            }
+            p1.transform.position = Vector3.Lerp(p1.transform.position, p1.transform.position + new Vector3(0.1f, 0, 0), 5.0f);
+
+        }
+
     }
     /// <summary>
     /// ShopUI

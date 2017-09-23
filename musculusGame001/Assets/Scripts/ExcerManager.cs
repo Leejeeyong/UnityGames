@@ -20,12 +20,12 @@ public class ExcerManager : MonoBehaviour {
         ExcerALV = PlayerPrefs.GetInt("EXCERALV", 0);
         ExcerAGetG= PlayerPrefs.GetInt("EXCERGETGOLD", 5);
         ExcerAPayH= PlayerPrefs.GetInt("EXCERPAYHP", 30);
-        ExcerAtxt.text = "LV:" + ExcerALV + "\n소요시간: " +(5+(5*ExcerALV))+"\n소요골드: "+ ExcerAGetG + "\n소요체력: " + ExcerAPayH;
+        ExcerAtxt.text = "LV:" + ExcerALV + "\n소요시간: " +(5+(5*ExcerALV))+ "\n획득골드: " + ExcerAGetG + "\n소요체력: " + ExcerAPayH;
     }
 	
 	// Update is called once per frame
 	void Update () {
-        ExcerAtxt.text = "LV:" + ExcerALV + "\n소요시간(초): " + (5 + (5 * ExcerALV)) + "\n소요골드: " + ExcerAGetG + "\n소요체력: " + ExcerAPayH;
+        //ExcerAtxt.text = "LV:" + ExcerALV + "\n소요시간(초): " + (5 + (5 * ExcerALV)) + "\n획득골드: " + ExcerAGetG + "\n소요체력: " + ExcerAPayH;
         if (timespan > 0)
         {
             ExcerAbtnText.text = timespan + "초";
