@@ -4,7 +4,7 @@ using UnityEngine;
 
 public class BulletManager : MonoBehaviour {
      static int enemyHP;
-     static int atk;
+     int atk;
      public int Weaponnum;
     
 

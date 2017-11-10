@@ -7,7 +7,10 @@ public class MainManager : MonoBehaviour {
 
     public BoxCollider2D boxclollider;//클릭영역부분
     public GameObject Enemy;
-    public GameObject bullet;
+    public GameObject bullet1;
+    public GameObject bullet2;
+    public GameObject bullet3;
+    public GameObject bullet4;
     static GameObject shootBull;
 
     struct Weapons
@@ -68,8 +71,12 @@ public class MainManager : MonoBehaviour {
     public GameObject weapon003;
     public GameObject weapon004;
 
-    public static int EnemyHP;
+    static int EnemyHP;
 
+    public Text atkText1;
+    public Text atkText2;
+    public Text atkText3;
+    public Text atkText4;
 
 
 
@@ -126,35 +133,76 @@ public class MainManager : MonoBehaviour {
         PlayerPrefs.SetInt("W3CLASS", 0);
         PlayerPrefs.SetInt("W4CLASS", 0);
         */
+
+        atkText1.text = "ATK" + W1atk;
+        atkText2.text = "ATK" + W2atk;
+        atkText3.text = "ATK" + W3atk;
+        atkText4.text = "ATK" + W4atk;
+
+
         Vector2 mousePos = Camera.main.ScreenToWorldPoint(Input.mousePosition);
         RaycastHit2D rayhit = Physics2D.Raycast(mousePos, Vector2.zero);
 
+        
+
         if (state==0)
         {
+            //애니메이션 작동 1회만 실행
             weapon001.GetComponent<Animator>().Play("Base Layer.state_idle",1);
+            weapon002.GetComponent<Animator>().Play("Base Layer.state_idle", 1);
+            weapon003.GetComponent<Animator>().Play("Base Layer.state_idle", 1);
+            weapon004.GetComponent<Animator>().Play("Base Layer.state_idle", 1);
         }
         else
         {
             state = 0;
         }
 
-        if (rayhit.collider != null)
+        if (rayhit.collider != null)//전체 화면에 충돌없지 않다면
         {
-            if (rayhit.collider == boxclollider && Input.GetMouseButtonDown(0))
+            if (rayhit.collider == boxclollider && Input.GetMouseButtonDown(0))//지정공간 충돌과 눌러질때
             {
-                weapon001.GetComponent<Animator>().Play("Base Layer.state_shoot");
-                state = 1;
-                shootBull = Instantiate(bullet,weapon001.transform.position+new Vector3(0.8f,0.3f,0),bullet.transform.rotation) as GameObject;
-                shootBull.name = bullet.name + "_" + Time.time;
-                Debug.Log("HP"+EnemyHP);
+                if (W1e == 1)//1번째 활성화시 작동
+                {
+                    weapon001.GetComponent<Animator>().Play("Base Layer.state_shoot");
+                    state = 1;
+                    shootBull = Instantiate(bullet1, weapon001.transform.position + new Vector3(0.8f, 0.3f, 0), bullet1.transform.rotation) as GameObject;
+                    shootBull.name = bullet1.name + "_" + Time.time;
+                    //Debug.Log("HP" + EnemyHP);
+                }
+                if (W2e == 1)//2번째 활성화시 작동
+                {
+                    weapon002.GetComponent<Animator>().Play("Base Layer.state_shoot");
+                    state = 1;
+                    shootBull = Instantiate(bullet2, weapon002.transform.position + new Vector3(0.8f, 0.3f, 0), bullet2.transform.rotation) as GameObject;
+                    shootBull.name = bullet2.name + "_" + Time.time;
+                    //Debug.Log("HP" + EnemyHP);
+                }
+                if (W3e == 1)//3번째 활성화시 작동
+                {
+                    weapon003.GetComponent<Animator>().Play("Base Layer.state_shoot");
+                    state = 1;
+                    shootBull = Instantiate(bullet3, weapon003.transform.position + new Vector3(0.8f, 0.3f, 0), bullet3.transform.rotation) as GameObject;
+                    shootBull.name = bullet3.name + "_" + Time.time;
+                    //Debug.Log("HP" + EnemyHP);
+                }
+                if (W4e == 1)//4번째 활성화시 작동
+                {
+                    weapon004.GetComponent<Animator>().Play("Base Layer.state_shoot");
+                    state = 1;
+                    shootBull = Instantiate(bullet4, weapon004.transform.position + new Vector3(0.8f, 0.3f, 0), bullet4.transform.rotation) as GameObject;
+                    shootBull.name = bullet4.name + "_" + Time.time;
+                    //Debug.Log("HP" + EnemyHP);
+                }
+                Debug.Log("HP" + EnemyHP);
             }
         }
 
-        EnemyHP = PlayerPrefs.GetInt("ENEMYHP");
+        EnemyHP = PlayerPrefs.GetInt("ENEMYHP");//적의 hp처리
 
     }
 
-    void checkWeapon()
+    void checkWeapon()//게임 시작시 슬롯 활성화 유무 확인과 활성화or비활성화
     {
 
         if (W1e == 1)
@@ -164,12 +212,22 @@ public class MainManager : MonoBehaviour {
             weapon001.GetComponent<Animator>().runtimeAnimatorController = weaponClass[W1class-1];
 
         }
+        else
+        {
+            W1BTN.SetActive(true);
+            weapon001.SetActive(false);
+        }
         if (W2e == 1)
         {
             W2BTN.SetActive(false);
             weapon002.SetActive(true);
             weapon002.GetComponent<Animator>().runtimeAnimatorController = weaponClass[W2class - 1];
 
+        }
+        else
+        {
+            W2BTN.SetActive(true);
+            weapon002.SetActive(false);
         }
         if (W3e == 1)
         {
@@ -178,6 +236,11 @@ public class MainManager : MonoBehaviour {
             weapon003.GetComponent<Animator>().runtimeAnimatorController = weaponClass[W3class - 1];
 
         }
+        else
+        {
+            W3BTN.SetActive(true);
+            weapon003.SetActive(false);
+        }
         if (W4e == 1)
         {
             W4BTN.SetActive(false);
@@ -185,10 +248,50 @@ public class MainManager : MonoBehaviour {
             weapon004.GetComponent<Animator>().runtimeAnimatorController = weaponClass[W4class - 1];
 
         }
-        
+        else
+        {
+            W4BTN.SetActive(true);
+            weapon004.SetActive(false);
+        }
     }
 
-    public void BuyWeapon(int WNUM)
+    public void Reset()//모든값 초기화
+    {
+        PlayerPrefs.SetInt("ENEMYHP", 100);
+        PlayerPrefs.SetInt("W1ATK", 1);
+        PlayerPrefs.SetInt("W2ATK", 2);
+        PlayerPrefs.SetInt("W3ATK", 3);
+        PlayerPrefs.SetInt("W4ATK", 4);
+
+        PlayerPrefs.SetInt("W1E",0);
+        PlayerPrefs.SetInt("W2E", 0);
+        PlayerPrefs.SetInt("W3E", 0);
+        PlayerPrefs.SetInt("W4E", 0);
+
+        PlayerPrefs.SetInt("W1CLASS", 0);
+        PlayerPrefs.SetInt("W2CLASS", 0);
+        PlayerPrefs.SetInt("W3CLASS", 0);
+        PlayerPrefs.SetInt("W4CLASS", 0);
+
+        W1e = PlayerPrefs.GetInt("W1E");
+        W2e = PlayerPrefs.GetInt("W2E");
+        W3e = PlayerPrefs.GetInt("W3E");
+        W4e = PlayerPrefs.GetInt("W4E");
+        W1class = PlayerPrefs.GetInt("W1CLASS");
+        W2class = PlayerPrefs.GetInt("W2CLASS");
+        W3class = PlayerPrefs.GetInt("W3CLASS");
+        W4class = PlayerPrefs.GetInt("W4CLASS");
+        W1atk = PlayerPrefs.GetInt("W1ATK");
+        W2atk = PlayerPrefs.GetInt("W2ATK");
+        W3atk = PlayerPrefs.GetInt("W3ATK");
+        W4atk = PlayerPrefs.GetInt("W4ATK");
+        EnemyHP = PlayerPrefs.GetInt("ENEMYHP");
+
+        checkWeapon();
+
+    }
+
+    public void BuyWeapon(int WNUM)//슬롯활성화
     {
         if (WNUM == 1)
         {
